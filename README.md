@@ -94,7 +94,7 @@ A number of optional checks can be specified, for more advanced monitoring. You 
 
 
 
-Here is a hypothetical `hosts.json` with a couple of more advanced examples based on the above:
+Here is a hypothetical `watchlist.json` with a couple of more advanced examples based on the above:
 
 ```json
 {
