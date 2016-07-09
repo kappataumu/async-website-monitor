@@ -1,0 +1,4 @@
+aiohttp==0.21.6
+beautifulsoup4==4.4.1
+chardet==2.3.0
+requests==2.10.0

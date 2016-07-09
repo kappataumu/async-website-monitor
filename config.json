@@ -1,0 +1,9 @@
+{
+    "MAILGUN_TO" : "",
+    "MAILGUN_FROM" : "",
+    "MAILGUN_API_KEY" : "",
+    "MAILGUN_DOMAIN" : "",
+    "HEARTBEAT_EVERY" : 86400,
+    "USE_MAILGUN": false,
+    "ALLOW_REDIRECTS": false
+}
