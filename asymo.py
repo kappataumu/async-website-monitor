@@ -6,6 +6,7 @@ import asyncio
 import json
 import logging
 import os
+import requests
 import time
 
 from bs4 import BeautifulSoup
@@ -18,11 +19,11 @@ args = parser.parse_args()
 # Absolute paths are better than relative
 absolute = os.path.dirname(os.path.abspath(__file__))
 files = {
-    'report.log'  : absolute + '/logs/report.log',
-    'asymo.log'     : absolute + '/logs/asymo.log',
+    'report.log'     : absolute + '/logs/report.log',
+    'asymo.log'      : absolute + '/logs/asymo.log',
     'watchlist.json' : args.watchlist if args.watchlist else absolute + '/watchlist.json',
-    'config.json' : args.config if args.config else absolute + '/config.json',
-    '.heartbeat'  : absolute + '/.heartbeat',
+    'config.json'    : args.config if args.config else absolute + '/config.json',
+    '.heartbeat'     : absolute + '/.heartbeat',
 }
 
 # Only these options will be picked up fron config.json
@@ -40,19 +41,19 @@ options = (
 # report.log stores the output of the most recent run
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
-logger.addHandler(logging.FileHandler(files['report.log'], 'w'))
 logger.addHandler(logging.FileHandler(files['asymo.log']))
+logger.addHandler(logging.FileHandler(files['report.log'], 'w'))
 logger.setLevel(logging.INFO)
 
 t = time.monotonic()
 logger.info("Work started: {0}\n".format(time.strftime("%Y/%m/%d %H:%M:%S")))
 
 try:
-    watchlist  = json.loads(open(files['watchlist.json']).read())
     config_js = json.loads(open(files['config.json']).read())
+    watchlist = json.loads(open(files['watchlist.json']).read())
 except Exception:
     logger.critical((
-        "Ensure the following files are are present and valid JSON:\n"
+        "Ensure the following files are present and valid JSON:\n"
         "Settings: {0}\n"
         "Watchlist: {1}"
         .format(files['config.json'], files['watchlist.json'])
@@ -81,6 +82,8 @@ def email(report):
         'subject': 'Async Website Monitor',
         'text': "Status report: \n" + report
     }
+    r = requests.post(url, auth=('api', config['MAILGUN_API_KEY']), data=data)
+    logger.info("MailGun status code: {0}".format(r.status_code))
     
     
 async def work(session, url, url_checks):
