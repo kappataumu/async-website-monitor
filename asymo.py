@@ -6,7 +6,6 @@ import asyncio
 import json
 import logging
 import os
-import requests
 import time
 
 from bs4 import BeautifulSoup
@@ -82,8 +81,6 @@ def email(report):
         'subject': 'Async Website Monitor',
         'text': "Status report: \n" + report
     }
-    r = requests.post(url, auth=('api', config['MAILGUN_API_KEY']), data=data)
-    logger.info("MailGun status code: {0}".format(r.status_code))
     
     
 async def work(session, url, url_checks):

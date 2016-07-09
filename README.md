@@ -4,8 +4,8 @@ A minimal yet functional website uptime and monitoring tool written in Python, u
 ## Installation
 
 ```
-git clone https://github.com/kappataumu/async-website-monitor
-pip install -r async-website-monitor/requirements.txt
+$ git clone https://github.com/kappataumu/async-website-monitor
+$ pip install -r async-website-monitor/requirements.txt
 ```
 
 
@@ -21,13 +21,13 @@ pip install -r async-website-monitor/requirements.txt
 ## Requirements
 * Python 3.5.1 or newer
 * Beautiful Soup 4
-* requests
-* MailGun (optional)
+* MailGun credentials (optional)
 
 
 ## Configuration
 
-A number of settings are available, which are required if you want to use the e-mail reporting functionality. All of them should be set:
+A number of settings are available. If you want to use the e-mail reporting functionality set `"USE_MAILGUN": true` and configure all the relevant MailGun bits. All the available options are as follows:
+
 
 | Setting | Description
 | --- | ---|
@@ -40,7 +40,7 @@ A number of settings are available, which are required if you want to use the e-
 
 These are expected to be found in `./config.json`, but you can specify a custom file on the command line as well:
 
-`asymo.py --config=/path/to/my/file/config.json`
+`$ asymo.py --config=/path/to/my/file/config.json`
 
 The default `config.json` is shown below:
 
@@ -71,9 +71,9 @@ export USE_MAILGUN=""
 
 The URLs you want to monitor along with any explicit checks should be placed in `./watchlist.json`, but you can specify a custom file on the command line as well:
 
-`asymo.py --watchlist=/path/to/my/file/watchlist.json`
+`$ asymo.py --watchlist=/path/to/my/file/watchlist.json`
 
-In order to keep configuration to a minimum, if you are happy with a `GET` request being issued and a `200` status code check, you only need to provide the URL to be checked, like so:
+In order to keep configuration verbosity to a minimum, if you are happy with a `GET` request being issued and a `200` status code check, you only need to provide the URL to be checked, like so:
 
 ```json
 {
