@@ -46,7 +46,7 @@ logger.addHandler(logging.FileHandler(files['report.log'], 'w'))
 logger.setLevel(logging.INFO)
 
 t = time.monotonic()
-logger.info("Work started: {0}\n".format(time.strftime("%Y/%m/%d %H:%M:%S")))
+logger.info("Work started: {0}".format(time.strftime("%Y/%m/%d %H:%M:%S")))
 
 try:
     config_js = json.loads(open(files['config.json']).read())
@@ -173,7 +173,8 @@ def main():
     loop.close()
     
     e = str(time.monotonic() - t)
-    logger.info("\nChecked {0} hosts in {1}s.".format(len(watchlist), e))
+    logger.info("Checked {0} hosts in {1}s.".format(len(watchlist), e))
+    logger.info('-' * 80)
 
     if config['USE_MAILGUN']:
         report = open(files['report.log']).read()
