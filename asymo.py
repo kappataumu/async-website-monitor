@@ -156,8 +156,7 @@ async def work(session, url, url_checks):
 async def dispatcher(session, watchlist, loop):
     futures = [
         loop.create_task(work(session, url, url_checks))
-        for url, url_checks
-        in watchlist.items()
+        for url, url_checks in watchlist.items()
     ]
     for future in asyncio.as_completed(futures):
         await future
@@ -167,8 +166,10 @@ def main():
 
     loop = asyncio.get_event_loop()
     conn = aiohttp.TCPConnector(verify_ssl=False)
+    
     with aiohttp.ClientSession(loop=loop, connector=conn) as session:
         loop.run_until_complete(dispatcher(session, watchlist, loop))
+    
     loop.close()
     
     e = str(time.monotonic() - t)
