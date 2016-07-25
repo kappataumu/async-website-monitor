@@ -128,13 +128,13 @@ async def work(session, url, url_checks):
                         logger.info((
                             "[OK] {0} => "
                             "Text in HTML "
-                            "not found: '{1}'".format(url, text_in_html)
+                            "found: '{1}'".format(url, text_in_html)
                         ))
                     else:
                         logger.error((
                             "[ERROR] {0} => "
                             "Text in HTML "
-                            "found: '{1}')".format(url, text_in_html)
+                            "not found: '{1}')".format(url, text_in_html)
                         ))
                 
                 if text_in_raw:
